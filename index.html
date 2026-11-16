@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farkhunda Hussaini | Verified Credentials</title>
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --navy: #14213D;
+        --navy-dark: #0B132B;
+        --gold: #FCA311;
+        --light-bg: #F8FAFC;
+        --gray-border: rgba(20, 33, 61, 0.08);
+        --text-dark: #0F172A;
+        --text-muted: #64748B;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background-color: var(--light-bg);
+        color: var(--text-dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1, h2, h3, .hero-title, .folder-title { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+      .hero-banner {
+        background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+        color: #FFFFFF;
+        padding: 75px 24px 100px;
+        text-align: center;
+        border-bottom: 2px solid var(--gold);
+      }
+      .hero-badge {
+        display: inline-block;
+        background: rgba(252, 163, 17, 0.1);
+        border: 1px solid rgba(252, 163, 17, 0.35);
+        color: var(--gold);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 7px 20px;
+        border-radius: 50px;
+        margin-bottom: 20px;
+      }
+      .hero-title { font-size: 44px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; color: #FFFFFF; }
+      .hero-title span { color: var(--gold); }
+      .hero-subtitle { max-width: 660px; margin: 0 auto; font-size: 15.5px; color: #CBD5E1; font-weight: 300; letter-spacing: 0.01em; }
+      .hero-subtitle strong { color: #FFFFFF; font-weight: 600; }
+      .container {
+        max-width: 1200px;
+        width: 100%;
+        margin: -52px auto 64px;
+        padding: 0 24px;
+        flex: 1;
+        position: relative;
+        z-index: 10;
+      }
+      .folders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+      @media (max-width: 900px) {
+        .folders-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+        .hero-title { font-size: 32px; }
+      }
+      .folder-card {
+        background: #FFFFFF;
+        border-radius: 24px;
+        padding: 30px 24px 26px;
+        box-shadow: 0 12px 32px -4px rgba(20, 33, 61, 0.06);
+        border: 1px solid var(--gray-border);
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .folder-card:hover { transform: translateY(-8px); border-color: rgba(252, 163, 17, 0.6); box-shadow: 0 20px 40px -8px rgba(20, 33, 61, 0.12); }
+      .folder-card.active-folder { border: 1.5px solid var(--gold); background: #FFFDF9; }
+      .folder-graphic { width: 220px; height: 155px; position: relative; margin: 14px 0 24px; }
+      .f-back { position: absolute; inset: 0; background: var(--navy); border-radius: 14px; }
+      .f-tab { position: absolute; top: -12px; left: 0; width: 85px; height: 20px; background: var(--navy); border-radius: 10px 10px 0 0; }
+      .f-paper-back, .f-paper-front {
+        position: absolute; left: 14px; right: 14px; height: 115px; background: #FFFFFF;
+        border-radius: 8px; padding: 3px; box-shadow: 0 -3px 10px rgba(0,0,0,0.15);
+        transition: transform 0.35s ease; overflow: hidden;
+      }
+      .f-paper-back { top: 8px; transform: rotate(-4deg); z-index: 2; }
+      .f-paper-front { top: 14px; transform: rotate(3deg); z-index: 3; }
+      .f-paper-back img, .f-paper-front img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+      .f-cover {
+        position: absolute; bottom: 0; left: 0; right: 0; height: 108px;
+        background: linear-gradient(135deg, #1E325C 0%, var(--navy) 100%);
+        border-radius: 14px; z-index: 4; border-top: 1.5px solid var(--gold);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+      }
+      .f-cover-gold { background: linear-gradient(135deg, #FCA311 0%, #D97706 100%); border-top: 1.5px solid rgba(255,255,255,0.7); }
+      .f-icon-circle {
+        width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 255, 255, 0.12);
+        color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+      }
+      .f-cover-gold .f-icon-circle { background: rgba(20, 33, 61, 0.15); color: var(--navy); }
+      .folder-card:hover .f-paper-back { transform: translateY(-16px) rotate(-6deg); }
+      .folder-card:hover .f-paper-front { transform: translateY(-12px) rotate(5deg); }
+      .folder-badge { font-size: 11px; font-weight: 600; color: var(--gold); text-transform: uppercase; letter-spacing: 1.8px; margin-bottom: 6px; }
+      .folder-title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); margin-bottom: 6px; }
+      .folder-desc { font-size: 13.5px; color: var(--text-muted); font-weight: 400; margin-bottom: 20px; }
+      .folder-btn {
+        background: var(--light-bg); color: var(--navy); font-size: 12px; font-weight: 600;
+        letter-spacing: 0.3px; padding: 9px 22px; border-radius: 50px;
+        border: 1px solid var(--gray-border); transition: all 0.25s ease; margin-top: auto;
+      }
+      .folder-card:hover .folder-btn, .folder-card.active-folder .folder-btn { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+      .gallery-section {
+        display: none; margin-top: 48px; background: #FFFFFF; border-radius: 24px; padding: 36px;
+        box-shadow: 0 20px 50px rgba(20, 33, 61, 0.06); border: 1px solid var(--gray-border);
+      }
+      .gallery-section.show { display: block; animation: slideUp 0.4s ease forwards; }
+      @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .gallery-header {
+        display: flex; justify-content: space-between; align-items: center;
+        border-bottom: 1px solid var(--gray-border); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;
+      }
+      .gallery-header h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+      .close-btn {
+        background: var(--navy); color: #FFFFFF; border: none; padding: 10px 22px;
+        border-radius: 50px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      }
+      .close-btn:hover { background: var(--gold); color: var(--navy); }
+      .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+      .cert-item {
+        background: var(--light-bg); border-radius: 18px; padding: 18px; border: 1px solid var(--gray-border);
+        cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column;
+      }
+      .cert-item:hover { border-color: rgba(252, 163, 17, 0.7); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+      .cert-img-box {
+        background: #FFFFFF; border-radius: 12px; height: 210px; padding: 10px;
+        display: flex; align-items: center; justify-content: center; border: 1px solid var(--gray-border); margin-bottom: 16px;
+      }
+      .cert-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
+      .cert-item h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--navy); margin-bottom: 4px; }
+      .cert-item p { font-size: 12.5px; color: var(--text-muted); font-weight: 400; margin-bottom: 14px; }
+      .zoom-tag {
+        margin-top: auto; font-size: 12px; font-weight: 600; color: var(--navy);
+        display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--gray-border);
+      }
+      .zoom-tag span { color: var(--gold); }
+      .modal-overlay {
+        display: none; position: fixed; inset: 0; background: rgba(11, 19, 43, 0.88);
+        backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;
+      }
+      .modal-overlay.open { display: flex; }
+      .modal-box { background: #FFFFFF; max-width: 850px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
+      .modal-top { background: var(--navy); color: #FFFFFF; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+      .modal-top h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+      .modal-close { background: rgba(255,255,255,0.12); color: #FFFFFF; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 600; cursor: pointer; }
+      .modal-close:hover { background: var(--gold); color: var(--navy); }
+      .modal-body { padding: 20px; background: #F1F5F9; display: flex; justify-content: center; align-items: center; }
+      .modal-body img { max-height: 78vh; max-width: 100%; object-fit: contain; border-radius: 8px; }
+      footer { background: var(--navy); color: #CBD5E1; text-align: center; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.08); }
+      .footer-inner { padding: 24px; font-weight: 400; }
+      .footer-bottom { background: #000000; padding: 14px; font-size: 12px; color: #94A3B8; font-weight: 300; }
+    </style>
+  </head>
+
+  <body>
+    <header class="hero-banner">
+      <div class="hero-badge">Official Credentials & Honors</div>
+      <h1 class="hero-title">Farkhunda <span>Hussaini</span></h1>
+      <p class="hero-subtitle">
+        Welcome to my verified digital archive. Explore my journey from zero coding background to becoming a <strong>Frontend Developer & Project Manager</strong> through certified programs at <strong>UCA</strong> and honors from <strong>Beyond The Borders (BTB)</strong>.
+      </p>
+    </header>
+
+    <main class="container">
+      <div class="folders-grid">
+        <div class="folder-card" id="card-btb" onclick="selectFolder('btb')">
+          <div class="folder-graphic">
+            <div class="f-tab" style="background: #B45309;"></div>
+            <div class="f-back" style="background: #B45309;"></div>
+            <div class="f-paper-front">
+              <img src="./images/btb.jpg.jpeg" alt="BTB Preview" />
+            </div>
+            <div class="f-cover f-cover-gold">
+              <div class="f-icon-circle">★</div>
+            </div>
+          </div>
+          <span class="folder-badge">1 Document</span>
+          <h3 class="folder-title">Beyond The Borders</h3>
+          <p class="folder-desc">Official Letter of Appreciation for frontend performance.</p>
+          <div class="folder-btn">Open Folder →</div>
+        </div>
+
+        <div class="folder-card" id="card-uca" onclick="selectFolder('uca')">
+          <div class="folder-graphic">
+            <div class="f-tab"></div>
+            <div class="f-back"></div>
+            <div class="f-paper-back">
+              <img src="./images/js.png" alt="JS Preview" />
+            </div>
+            <div class="f-paper-front">
+              <img src="./images/git-github-tailwind.png" alt="Git Preview" />
+            </div>
+            <div class="f-cover">
+              <div class="f-icon-circle">&lt;/&gt;</div>
+            </div>
+          </div>
+          <span class="folder-badge">3 Certificates</span>
+          <h3 class="folder-title">UCA Web Courses</h3>
+          <p class="folder-desc">HTML, CSS, JavaScript, Git, GitHub & Tailwind CSS.</p>
+          <div class="folder-btn">Open Folder →</div>
+        </div>
+
+        <div class="folder-card" id="card-english" onclick="selectFolder('english')">
+          <div class="folder-graphic">
+            <div class="f-tab"></div>
+            <div class="f-back"></div>
+            <div class="f-paper-back">
+              <img src="./images/f2.png" alt="English 2 Preview" />
+            </div>
+            <div class="f-paper-front">
+              <img src="./images/f1.png" alt="English 1 Preview" />
+            </div>
+            <div class="f-cover">
+              <div class="f-icon-circle">Aa</div>
+            </div>
+          </div>
+          <span class="folder-badge">3 Certificates</span>
+          <h3 class="folder-title">English Language</h3>
+          <p class="folder-desc">Hazara Students Association in India.</p>
+          <div class="folder-btn">Open Folder →</div>
+        </div>
+      </div>
+
+      <section class="gallery-section" id="gallerySection">
+        <div class="gallery-header">
+          <div>
+            <span class="folder-badge" id="activeFolderBadge">Folder Contents</span>
+            <h2 id="activeFolderTitle">Folder Title</h2>
+          </div>
+          <button class="close-btn" onclick="closeGallery()">✕ Close Folder</button>
+        </div>
+        <div class="certs-grid" id="certsContainer"></div>
+      </section>
+    </main>
+
+    <div class="modal-overlay" id="imageModal" onclick="closeModal()">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-top">
+          <h3 id="modalCaption">Document Preview</h3>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <img id="modalImage" src="" alt="Certificate Full View" />
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <strong>Farkhunda Hussaini</strong> — Frontend Developer & Project Manager
+      </div>
+      <div class="footer-bottom">
+        © 2026 All Credentials & Achievements Verified.
+      </div>
+    </footer>
+
+    <script>
+      const archiveData = {
+        btb: {
+          badge: "Professional Honor • 1 Document",
+          title: "Beyond The Borders (BTB) — Appreciation",
+          files: [
+            {
+              src: "./images/btb.jpg.jpeg",
+              title: "Official Letter of Appreciation",
+              subtitle: "Awarded by Beyond The Borders (BTB) for hard work and real-world project contributions."
+            }
+          ]
+        },
+        uca: {
+          badge: "Technical Track • 3 Certificates",
+          title: "University of Central Asia (UCA) — Web Development",
+          files: [
+            {
+              src: "./images/git-github-tailwind.png",
+              title: "Git, GitHub & Tailwind CSS",
+              subtitle: "University of Central Asia (UCA) — Version control and modern UI styling."
+            },
+            {
+              src: "./images/js.png",
+              title: "JavaScript Programming",
+              subtitle: "University of Central Asia (UCA) — Interactive web logic and DOM manipulation."
+            },
+            {
+              src: "./images/html-css.png",
+              title: "HTML5 & CSS3 Foundations",
+              subtitle: "University of Central Asia (UCA) — Responsive layouts and semantic web design."
+            }
+          ]
+        },
+        english: {
+          badge: "Language Proficiency • 3 Certificates",
+          title: "English Language Program — Hazara Students Association (India)",
+          files: [
+            {
+              src: "./images/f1.png",
+              title: "English Language Certificate (Level 1)",
+              subtitle: "Hazara Students Association in India"
+            },
+            {
+              src: "./images/f2.png",
+              title: "English Language Certificate (Level 2)",
+              subtitle: "Hazara Students Association in India"
+            },
+            {
+              src: "./images/f3.png",
+              title: "English Language Certificate (Level 3)",
+              subtitle: "Hazara Students Association in India"
+            }
+          ]
+        }
+      };
+
+      function selectFolder(folderKey) {
+        document.querySelectorAll('.folder-card').forEach(card => card.classList.remove('active-folder'));
+        document.getElementById('card-' + folderKey).classList.add('active-folder');
+
+        const data = archiveData[folderKey];
+        document.getElementById('activeFolderBadge').innerText = data.badge;
+        document.getElementById('activeFolderTitle').innerText = data.title;
+
+        const container = document.getElementById('certsContainer');
+        container.innerHTML = data.files.map(file => `
+          <div class="cert-item" onclick="openModal('${file.src}', '${file.title}')">
+            <div class="cert-img-box">
+              <img src="${file.src}" alt="${file.title}" />
+            </div>
+            <h3>${file.title}</h3>
+            <p>${file.subtitle}</p>
+            <div class="zoom-tag">Click to view full size <span>↗</span></div>
+          </div>
+        `).join('');
+
+        const gallery = document.getElementById('gallerySection');
+        gallery.classList.add('show');
+        gallery.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function closeGallery() {
+        document.getElementById('gallerySection').classList.remove('show');
+        document.querySelectorAll('.folder-card').forEach(card => card.classList.remove('active-folder'));
+      }
+
+      function openModal(src, title) {
+        document.getElementById('modalImage').src = src;
+        document.getElementById('modalCaption').innerText = title;
+        document.getElementById('imageModal').classList.add('open');
+      }
+
+      function closeModal() {
+        document.getElementById('imageModal').classList.remove('open');
+      }
+    </script>
+  </body>
+</html>
